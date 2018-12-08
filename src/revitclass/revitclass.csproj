@@ -50,15 +50,15 @@
   <ItemGroup>
     <Reference Include="RevitAddInUtility, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\ProgrammFiles\Autodesk\Revit 2019\RevitAddInUtility.dll</HintPath>
+      <HintPath>..\..\references\RevitAddInUtility.dll</HintPath>
     </Reference>
     <Reference Include="RevitAPI, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\ProgrammFiles\Autodesk\Revit 2019\RevitAPI.dll</HintPath>
+      <HintPath>..\..\references\RevitAPI.dll</HintPath>
     </Reference>
     <Reference Include="RevitAPIUI, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\ProgrammFiles\Autodesk\Revit 2019\RevitAPIUI.dll</HintPath>
+      <HintPath>..\..\references\RevitAPIUI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
