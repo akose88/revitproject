@@ -1,4 +1,4 @@
-﻿namespace Opzet
+﻿namespace forms
 {
     partial class EditProjectLeader
     {

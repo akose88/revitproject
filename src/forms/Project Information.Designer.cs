@@ -1,4 +1,4 @@
-﻿namespace Opzet
+﻿namespace forms
 {
     partial class ProjectInformation
     {
@@ -40,11 +40,11 @@
             this.Label_Discipline = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Button_EditProjectLeader = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textbox_orgdesc = new System.Windows.Forms.TextBox();
             this.PlComboBox = new System.Windows.Forms.ComboBox();
             this.Textbox_OrganizationName = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textbox_buildingname = new System.Windows.Forms.TextBox();
+            this.textbox_projectname = new System.Windows.Forms.TextBox();
             this.TextboxReadOnly_ProjectNumber = new System.Windows.Forms.TextBox();
             this.ProjectLeader = new System.Windows.Forms.Label();
             this.Label_OrganizationDescription = new System.Windows.Forms.Label();
@@ -56,6 +56,10 @@
             this.Cancel_Button = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.ToolTip_ProjectNumberSeperator = new System.Windows.Forms.ToolTip(this.components);
+            this.textbox_clientname = new System.Windows.Forms.TextBox();
+            this.label_ClientName = new System.Windows.Forms.Label();
+            this.textbox_ProjectAdress = new System.Windows.Forms.TextBox();
+            this.label_ProjectAdress = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -148,7 +152,6 @@
             this.ComboBox_Discipline.Name = "ComboBox_Discipline";
             this.ComboBox_Discipline.Size = new System.Drawing.Size(256, 24);
             this.ComboBox_Discipline.TabIndex = 4;
-            this.ComboBox_Discipline.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Discipline_SelectedIndexChanged);
             // 
             // Label_Discipline
             // 
@@ -162,12 +165,16 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textbox_ProjectAdress);
+            this.groupBox2.Controls.Add(this.label_ProjectAdress);
+            this.groupBox2.Controls.Add(this.textbox_clientname);
+            this.groupBox2.Controls.Add(this.label_ClientName);
             this.groupBox2.Controls.Add(this.Button_EditProjectLeader);
-            this.groupBox2.Controls.Add(this.textBox7);
+            this.groupBox2.Controls.Add(this.textbox_orgdesc);
             this.groupBox2.Controls.Add(this.PlComboBox);
             this.groupBox2.Controls.Add(this.Textbox_OrganizationName);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.textBox5);
+            this.groupBox2.Controls.Add(this.textbox_buildingname);
+            this.groupBox2.Controls.Add(this.textbox_projectname);
             this.groupBox2.Controls.Add(this.TextboxReadOnly_ProjectNumber);
             this.groupBox2.Controls.Add(this.ProjectLeader);
             this.groupBox2.Controls.Add(this.Label_OrganizationDescription);
@@ -178,14 +185,14 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(12, 164);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(498, 229);
+            this.groupBox2.Size = new System.Drawing.Size(498, 348);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Project Information";
             // 
             // Button_EditProjectLeader
             // 
-            this.Button_EditProjectLeader.Location = new System.Drawing.Point(444, 164);
+            this.Button_EditProjectLeader.Location = new System.Drawing.Point(444, 247);
             this.Button_EditProjectLeader.Margin = new System.Windows.Forms.Padding(2);
             this.Button_EditProjectLeader.Name = "Button_EditProjectLeader";
             this.Button_EditProjectLeader.Size = new System.Drawing.Size(34, 23);
@@ -194,20 +201,20 @@
             this.Button_EditProjectLeader.UseVisualStyleBackColor = true;
             this.Button_EditProjectLeader.Click += new System.EventHandler(this.Button_EditProjectLeader_Click);
             // 
-            // textBox7
+            // textbox_orgdesc
             // 
-            this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textBox7.Location = new System.Drawing.Point(186, 51);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(256, 23);
-            this.textBox7.TabIndex = 1;
+            this.textbox_orgdesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textbox_orgdesc.Location = new System.Drawing.Point(186, 51);
+            this.textbox_orgdesc.Name = "textbox_orgdesc";
+            this.textbox_orgdesc.Size = new System.Drawing.Size(256, 23);
+            this.textbox_orgdesc.TabIndex = 1;
             // 
             // PlComboBox
             // 
             this.PlComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PlComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.PlComboBox.FormattingEnabled = true;
-            this.PlComboBox.Location = new System.Drawing.Point(186, 164);
+            this.PlComboBox.Location = new System.Drawing.Point(186, 247);
             this.PlComboBox.Name = "PlComboBox";
             this.PlComboBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.PlComboBox.Size = new System.Drawing.Size(256, 24);
@@ -224,21 +231,21 @@
             this.Textbox_OrganizationName.Size = new System.Drawing.Size(256, 23);
             this.Textbox_OrganizationName.TabIndex = 0;
             // 
-            // textBox3
+            // textbox_buildingname
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textBox3.Location = new System.Drawing.Point(186, 80);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(256, 23);
-            this.textBox3.TabIndex = 2;
+            this.textbox_buildingname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textbox_buildingname.Location = new System.Drawing.Point(186, 80);
+            this.textbox_buildingname.Name = "textbox_buildingname";
+            this.textbox_buildingname.Size = new System.Drawing.Size(256, 23);
+            this.textbox_buildingname.TabIndex = 2;
             // 
-            // textBox5
+            // textbox_projectname
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textBox5.Location = new System.Drawing.Point(186, 135);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(256, 23);
-            this.textBox5.TabIndex = 4;
+            this.textbox_projectname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textbox_projectname.Location = new System.Drawing.Point(186, 135);
+            this.textbox_projectname.Name = "textbox_projectname";
+            this.textbox_projectname.Size = new System.Drawing.Size(256, 23);
+            this.textbox_projectname.TabIndex = 4;
             // 
             // TextboxReadOnly_ProjectNumber
             // 
@@ -254,7 +261,7 @@
             // 
             this.ProjectLeader.AutoSize = true;
             this.ProjectLeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.ProjectLeader.Location = new System.Drawing.Point(12, 171);
+            this.ProjectLeader.Location = new System.Drawing.Point(12, 254);
             this.ProjectLeader.Name = "ProjectLeader";
             this.ProjectLeader.Size = new System.Drawing.Size(101, 17);
             this.ProjectLeader.TabIndex = 1;
@@ -354,11 +361,47 @@
             this.ToolTip_ProjectNumberSeperator.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ToolTip_ProjectNumberSeperator.ToolTipTitle = "Project Number Seperator";
             // 
+            // textbox_clientname
+            // 
+            this.textbox_clientname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textbox_clientname.Location = new System.Drawing.Point(186, 164);
+            this.textbox_clientname.Name = "textbox_clientname";
+            this.textbox_clientname.Size = new System.Drawing.Size(256, 23);
+            this.textbox_clientname.TabIndex = 8;
+            // 
+            // label_ClientName
+            // 
+            this.label_ClientName.AutoSize = true;
+            this.label_ClientName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label_ClientName.Location = new System.Drawing.Point(12, 171);
+            this.label_ClientName.Name = "label_ClientName";
+            this.label_ClientName.Size = new System.Drawing.Size(84, 17);
+            this.label_ClientName.TabIndex = 7;
+            this.label_ClientName.Text = "Client Name";
+            // 
+            // textbox_ProjectAdress
+            // 
+            this.textbox_ProjectAdress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textbox_ProjectAdress.Location = new System.Drawing.Point(186, 193);
+            this.textbox_ProjectAdress.Name = "textbox_ProjectAdress";
+            this.textbox_ProjectAdress.Size = new System.Drawing.Size(256, 23);
+            this.textbox_ProjectAdress.TabIndex = 10;
+            // 
+            // label_ProjectAdress
+            // 
+            this.label_ProjectAdress.AutoSize = true;
+            this.label_ProjectAdress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label_ProjectAdress.Location = new System.Drawing.Point(12, 200);
+            this.label_ProjectAdress.Name = "label_ProjectAdress";
+            this.label_ProjectAdress.Size = new System.Drawing.Size(100, 17);
+            this.label_ProjectAdress.TabIndex = 9;
+            this.label_ProjectAdress.Text = "Project Adress";
+            // 
             // ProjectInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 450);
+            this.ClientSize = new System.Drawing.Size(621, 610);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.Cancel_Button);
             this.Controls.Add(this.OK_Button);
@@ -387,10 +430,10 @@
         private System.Windows.Forms.ComboBox ComboBox_Discipline;
         private System.Windows.Forms.Label Label_Discipline;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textbox_orgdesc;
         private System.Windows.Forms.TextBox Textbox_OrganizationName;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textbox_buildingname;
+        private System.Windows.Forms.TextBox textbox_projectname;
         private System.Windows.Forms.TextBox TextboxReadOnly_ProjectNumber;
         private System.Windows.Forms.Label Label_OrganizationDescription;
         private System.Windows.Forms.Label Label_ProjectName;
@@ -406,5 +449,9 @@
         private System.Windows.Forms.TextBox Textbox_ProjectNumberSuffix;
         private System.Windows.Forms.ToolTip ToolTip_ProjectNumberSeperator;
         private System.Windows.Forms.Button Button_EditProjectLeader;
+        private System.Windows.Forms.TextBox textbox_clientname;
+        private System.Windows.Forms.Label label_ClientName;
+        private System.Windows.Forms.TextBox textbox_ProjectAdress;
+        private System.Windows.Forms.Label label_ProjectAdress;
     }
 }

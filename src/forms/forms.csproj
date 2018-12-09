@@ -56,6 +56,7 @@
     <Compile Include="EditProjectLeader.Designer.cs">
       <DependentUpon>EditProjectLeader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Providers\ProviderMethod.cs" />
     <Compile Include="NewProjects.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,9 +104,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Settings\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="ProjectLeiders.xml">
       <SubType>Designer</SubType>

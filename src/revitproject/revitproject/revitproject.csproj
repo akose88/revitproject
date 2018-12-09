@@ -41,5 +41,16 @@
   <ItemGroup>
     <Content Include="TextFile1.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ValuebyName.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>D:\Program Files\Autodesk\Revit 2018\RevitAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>D:\Program Files\Autodesk\Revit 2018\RevitAPIUI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

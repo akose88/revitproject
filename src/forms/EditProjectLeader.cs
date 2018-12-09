@@ -4,7 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace Opzet
+namespace forms
 {
     public partial class EditProjectLeader : Form
     {
