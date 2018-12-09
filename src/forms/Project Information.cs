@@ -33,6 +33,7 @@ namespace forms
         public string Discipline;
         public string ClientName => textbox_clientname.Text;
         public string Project_adress => textbox_ProjectAdress.Text;
+        public string Projectleider => PlComboBox.Text;
 
         //Set ProjectLeader Combobox
         public void ProjectInformation_Load(object sender, EventArgs e)

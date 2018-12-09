@@ -42,6 +42,8 @@
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="ValuebyName - Copy.cs" />
     <Compile Include="ValuebyName.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +53,10 @@
     <Reference Include="RevitAPIUI">
       <HintPath>D:\Program Files\Autodesk\Revit 2018\RevitAPIUI.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
