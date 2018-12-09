@@ -12,6 +12,8 @@ namespace RevitAddin7.TransactionManager
         private Transaction Transaction => Transactions[TransactionIndex];
         private int TransactionIndex { get; set; } = 0;
 
+        private string TransactionName => Guid.NewGuid().ToString();
+
         public TransactionManager(Document document)
         {
             Document = document;
@@ -19,15 +21,13 @@ namespace RevitAddin7.TransactionManager
             TransactionGroup = new TransactionGroup(Document);
             TransactionGroup.Start();
 
-            Transactions = new List<Transaction> { new Transaction(Document) };
+            Transactions = new List<Transaction> { new Transaction(Document, TransactionName) };
             Transaction.Start();
         }
 
         public void NewTranaction()
         {
-            var transactionName = Guid.NewGuid().ToString();
-
-            Transactions.Add(new Transaction(Document, transactionName));
+            Transactions.Add(new Transaction(Document, TransactionName));
             TransactionIndex++;
             Transaction.Start();
         }
