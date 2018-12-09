@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using System;
 using System.Collections.Generic;
 
 namespace RevitAddin7.TransactionManager
@@ -24,7 +25,9 @@ namespace RevitAddin7.TransactionManager
 
         public void NewTranaction()
         {
-            Transactions.Add(new Transaction(Document));
+            var transactionName = Guid.NewGuid().ToString();
+
+            Transactions.Add(new Transaction(Document, transactionName));
             TransactionIndex++;
             Transaction.Start();
         }
