@@ -43,10 +43,9 @@
     <Compile Include="App.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-	    <Compile Include="TransactionManager\ITransactionManager.cs" />
+    <Compile Include="TransactionManager\ITransactionManager.cs" />
     <Compile Include="TransactionManager\TransactionManager.cs" />
-	    <Compile Include="ValuebyName.cs" />
-
+    <Compile Include="BuildingCoder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RevitAddin7.addin" />
