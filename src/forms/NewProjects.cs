@@ -2,12 +2,8 @@
 using System.Windows.Forms;
 using System.IO;
 
-namespace Opzet
+namespace forms
 {
-    /*****************************************************************************************
-    NewProjects     = Name of main form
-    *****************************************************************************************/
-
     public partial class NewProjects : Form
     {
         public ProjectInformation ProjectInformation { get; set; }
@@ -38,7 +34,6 @@ namespace Opzet
                 this.Hide();
                 loc = Textbox_BrowseText.Text;
                 ProjectInformation.ShowDialog();
-                
             }
         }
        
@@ -66,14 +61,12 @@ namespace Opzet
                 Listbox_ListboxShowFiles.Items.Clear();
                 string[] Files = Directory.GetFiles(Browse.SelectedPath);
                 string[] Dirs = Directory.GetDirectories(Browse.SelectedPath);
-      //          Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(Browse.SelectedPath);
 
                 foreach (string File in Files)
                 {
                     if (Path.GetExtension(File) == ".rvt")
                     {
                         Listbox_ListboxShowFiles.Items.Add(Path.GetFileName(File));
-                       // Listbox_ListboxShowFiles.Items.Add(Icon.ExtractAssociatedIcon (File));
                     }
                 }
 
@@ -96,7 +89,9 @@ namespace Opzet
             }
             else
             {
-                DialogResult DeleteFile = MessageBox.Show("Are you sure you want to delete this file?", "Delete File", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                string message = "Are you sure you want to delete this file?";
+                string title = "Delete File";
+                DialogResult DeleteFile = MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (DeleteFile == DialogResult.Yes)
                 {
                     File.Delete(SelectedFilePath + "\\"+ SelectedFile); //Deletes the selected file
@@ -110,36 +105,24 @@ namespace Opzet
 
                 foreach (string File in Files)
                 {
-
                     if (Path.GetExtension(File) == ".rvt")
                     {
                         Listbox_ListboxShowFiles.Items.Add(Path.GetFileName(File));
                     }
-
                 }
 
                 foreach (string Dir in Dirs)
                 {
                     Listbox_ListboxShowFiles.Items.Add(Path.GetFileName(Dir));
                 }
-
             }
-                
         }
-       
 
         //***************** Close Button *****************
         private void Button_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        public static implicit operator NewProjects(ProjectInformation v)
-        {
-            throw new NotImplementedException();
-        }
-
-
     }
 }
 

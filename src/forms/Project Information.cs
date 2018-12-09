@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
-using System.IO;
+using forms.Providers;
 
-
-namespace Opzet
+namespace forms
 {
-   
     public partial class ProjectInformation : Form 
     {
-        //---------------------------------------------------------------------------
-        //Top
-        //---------------------------------------------------------------------------
-
        //XML file
         public string file = @"C:\Users\Appie\Desktop\projectleiders.xml";
         public static string Xmlfile;
@@ -23,31 +17,31 @@ namespace Opzet
         public ProjectInformation()
         {
             InitializeComponent();
-            LoadEnabled();
-            this.ComboBox_Discipline.SelectedIndexChanged += new System.EventHandler(this.cbItemChanged);
-            
+            ProviderMethod.LoadEnabled(TextboxReadOnly_ProjectNumber, false);
+            ProviderMethod.LoadEnabled(Label_ProjectNumberReadOnly, false);
+            this.ComboBox_Discipline.SelectedIndexChanged += new EventHandler(this.CbItemChanged);
         }
 
         public string TotalProjectNumber => TextboxReadOnly_ProjectNumber.Text;
         public string OrganizationName => Textbox_OrganizationName.Text;
+        public string ProjectName => textbox_projectname.Text;
+        public string OrganizationDesc => textbox_orgdesc.Text;
         public string TotalDescription => Textbox_Description.Text;
-        public string FileName => TotalProjectNumber + "_" + Textbox_Description.Text + "_" + Discipline + ".rvt";
+        public string BuildingName => textbox_buildingname.Text;
+        public string FileName => $"{TotalProjectNumber}_{Textbox_Description.Text}_{Discipline}.rvt";
         public string FilePath => NewProjects.loc;
-
         public string Discipline;
-
+        public string ClientName => textbox_clientname.Text;
+        public string Project_adress => textbox_ProjectAdress.Text;
 
         //Set ProjectLeader Combobox
         public void ProjectInformation_Load(object sender, EventArgs e)
         {
             xdoc.Load(@file); // Load XML
-            ComboBox_Discipline.Items.Add("Architecture");
-            ComboBox_Discipline.Items.Add("Structure");
-            ComboBox_Discipline.Items.Add("Construction");
+            ProviderMethod.SetCbTypes(ComboBox_Discipline);
         }
 
         //************ Textbox Changed ************ 
-
         private void Textbox_ProjectNumber_TextChanged(object sender, EventArgs e)
         {
             TextboxReadOnly_ProjectNumber.Text = Textbox_ProjectNumber.Text;
@@ -59,9 +53,12 @@ namespace Opzet
             if (!Char.IsLetter(ProjectNumberSuffixSep) && ProjectNumberSuffixSep != 8 && ProjectNumberSuffixSep != 13)
             {
                 e.Handled = true;
-                MessageBox.Show("Please enter a valid value of characters (A - Z)", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var message = "Please enter a valid value of characters (A - Z)";
+                var title = "Information";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
         public void PlComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
            xdoc.Load(@file);
@@ -71,18 +68,11 @@ namespace Opzet
                 string name = (node.ChildNodes[0].InnerText);
                 string afk = (node.ChildNodes[1].InnerText);
 
-                Dictionary<string, string> afkorting = new Dictionary<string, string>
-                {
-                    { name, afk }
-                };
+                Dictionary<string, string> afkorting = new Dictionary<string, string>{{ name, afk }};
 
-                if (PlComboBox.Text == name)
-                {
-                    label9.Text = afk;
-                }
+                if (PlComboBox.Text == name){label9.Text = afk;}
             }            
         }
-
 
         //************ Keypress ************
         private void Textbox_ProjectNumber_KeyPress(object sender, KeyPressEventArgs e)
@@ -91,7 +81,9 @@ namespace Opzet
             if (!Char.IsDigit(ProjectNumber) && ProjectNumber != 8 && ProjectNumber != 13)
             {
                 e.Handled = true;
-                MessageBox.Show("Please enter a valid value of numbers (0-9)", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var message = "Please enter a valid value of numbers (0-9)";
+                var title = "Information";
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -109,46 +101,19 @@ namespace Opzet
         private void PlComboBox_DropDown(object sender, EventArgs e)
         {
             PlComboBox.Items.Clear();
-            Comboboxupdater();
-
-        }
- 
-        void Comboboxupdater()
-        {
-            foreach (XmlNode node in xdoc.DocumentElement)
-            {
-                string name = (node.ChildNodes[0].InnerText);
-                PlComboBox.Items.Add(name);
-            }
-        }
-        void LoadEnabled()
-        {
-            //************ Standard load settings ************
-
-            //TextBoxes
-            TextboxReadOnly_ProjectNumber.Enabled = false;
-
-            //Labels
-            Label_ProjectNumberReadOnly.Enabled = false;
+            ProviderMethod.Comboboxupdater(xdoc, PlComboBox);
         }
 
         private void Cancel_Button_Click(object sender, EventArgs e)
         {
-            // this.Close();
-
-            //cbUpdater();
             MessageBox.Show(FileName);
         }
 
         public event OkPressed OK;
-
-       // public event OkPressed1 OkEvent;
         public delegate void OkPressed();
-       // public delegate void OkPressed1();
 
         private void OK_Button_Click(object sender, EventArgs e)
         {
-           // OkEvent();
             OK();
             MessageBox.Show("Document is gecreeërd");
             this.Close();
@@ -163,26 +128,16 @@ namespace Opzet
             }
             else
             {
-                TextboxReadOnly_ProjectNumber.Text = Textbox_ProjectNumber.Text + "-" + Textbox_ProjectNumberSuffix.Text;
+                TextboxReadOnly_ProjectNumber.Text = $"{Textbox_ProjectNumber.Text}-{Textbox_ProjectNumberSuffix.Text}";
             }
         }
 
-        private void ComboBox_Discipline_SelectedIndexChanged(object sender, EventArgs e)
+        void CbItemChanged(object sender, EventArgs e)
         {
-
-
-            
-        }
-        void cbItemChanged(object sender, EventArgs e)
-        {
-            if (ComboBox_Discipline.Text == "Architecture")
-            {
-                Discipline = "ARC";
-            }
-            if (ComboBox_Discipline.Text == "Structure")
-            {
-                Discipline = "STR";
-            }
+            ProviderMethod.CbDicipline(ComboBox_Discipline, "Architecture", "ARC");
+            ProviderMethod.CbDicipline(ComboBox_Discipline, "Structure", "STR");
+            ProviderMethod.CbDicipline(ComboBox_Discipline, "Construction", "CON");
+            ProviderMethod.CbDicipline(ComboBox_Discipline, "Coordination", "COO");
         }
     }
 }
