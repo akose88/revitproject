@@ -12,6 +12,8 @@ using RevitAddin7.TransactionManager;
 using System.Linq;
 using System.IO;
 using BuildingCoder;
+using System.Linq;
+using System.Text;
 
 #endregion
 
@@ -52,14 +54,35 @@ namespace RevitAddin7
                     activeDoc.ProjectInformation.Status = "Concept";
                     activeDoc.ProjectInformation.OrganizationName = information.OrganizationName;
                     activeDoc.ProjectInformation.OrganizationDescription = information.OrganizationDesc;
-                 // activeDoc.GetElement("").GetParameters("")[0].SetValueString("");
-                    var category = GetCategory(activeDoc.Settings.Categories, "Project Information");
-                    
-                    CategorySet cats = app.Create.NewCategorySet();
-                   cats.Insert(category);
+                    // activeDoc.GetElement("").GetParameters("")[0].SetValueString("");
+                    if (activeDoc == null)
+                    {
+                        throw new ArgumentNullException("doc");
+                    }
 
-                    RawCreateProjectParameter(app, information.Projectleider, ParameterType.Text, true,
-                        cats, BuiltInParameterGroup.PG_IDENTITY_DATA, true);
+                    if (activeDoc.IsFamilyDocument)
+                    {
+                        throw new Exception("doc can not be a family document.");
+                    }
+
+                    List<ProjectParameterData> result = new List<ProjectParameterData>();
+
+                    BindingMap map = activeDoc.ParameterBindings;
+                    DefinitionBindingMapIterator it
+                      = map.ForwardIterator();
+                    it.Reset();
+                    while (it.MoveNext())
+                    {
+                        ProjectParameterData newProjectParameterData = new ProjectParameterData();
+
+                        newProjectParameterData.Definition = it.Key;
+                        newProjectParameterData.Name = it.Key.Name;
+                        newProjectParameterData.Binding = it.Current
+                          as ElementBinding;
+
+                        result.Add(newProjectParameterData);
+                        
+                    }
                 }
              
                 activeDoc.SaveAs(file);
@@ -69,67 +92,15 @@ namespace RevitAddin7
             newProjects.ShowDialog();
             return Result.Succeeded;
         }
-
-        private Category GetCategory(Categories categories, string name)
+        class ProjectParameterData
         {
-            foreach (Category category in categories)
-            {
-                if (category.Name == name) return category;
-            }
-            return null;
+            public Definition Definition = null;
+            public ElementBinding Binding = null;
+            public string Name = null;                // Needed because accsessing the Definition later may produce an error.
+            public bool IsSharedStatusKnown = false;  // Will probably always be true when the data is gathered
+            public bool IsShared = false;
+            public string GUID = null;
         }
-        public void RawCreateProjectParameter(Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
-        {
-            string oriFile = app.SharedParametersFilename;
-            string tempFile = Path.GetTempFileName() + ".txt";
-            using (File.Create(tempFile)) { }
-            app.SharedParametersFilename = tempFile;
-
-            cats.Insert()
-            var defOptions = new ExternalDefinitionCreationOptions(name, type)
-            {
-                Visible = visible,
-            };
-            ExternalDefinition def = app.OpenSharedParameterFile().Groups.Create("TemporaryDefintionGroup").Definitions.Create(defOptions) as ExternalDefinition;
-
-            app.SharedParametersFilename = oriFile;
-            File.Delete(tempFile);
-
-            Autodesk.Revit.DB.Binding binding = app.Create.NewTypeBinding(cats);
-            if (inst) binding = app.Create.NewInstanceBinding(cats);
-
-            BindingMap map = ActiveDocument.ParameterBindings;
-            if (!map.Insert(def, binding, group))
-            {
-                Trace.WriteLine($"Failed to create Project parameter '{name}' :(");
-            }
-        }
-
-        public static void RawCreateProjectParameter1(Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
-        {
-            //InternalDefinition def = new InternalDefinition();
-            //Definition def = new Definition();
-
-            string oriFile = app.SharedParametersFilename;
-            string tempFile = Path.GetTempFileName() + ".txt";
-            using (File.Create(tempFile)) { }
-            app.SharedParametersFilename = tempFile;
-           // ExternalDefinition def = app.OpenSharedParameterFile().Groups.Create("TemporaryDefintionGroup").Definitions.Create(defOptions) as ExternalDefinition;
-
-          ExternalDefinition def = app.OpenSharedParameterFile().Groups.Create("TemporaryDefintionGroup").Definitions.Create(name, type, visible) as ExternalDefinition;
-
-            app.SharedParametersFilename = oriFile;
-            File.Delete(tempFile);
-
-            Autodesk.Revit.DB.Binding binding = app.Create.NewTypeBinding(cats);
-            if (inst) binding = app.Create.NewInstanceBinding(cats);
-
-            BindingMap map = (new UIApplication(app)).ActiveUIDocument.Document.ParameterBindings;
-            map.Insert(def, binding, group);
-        }
-
-
-
-
+        
     }
 }
